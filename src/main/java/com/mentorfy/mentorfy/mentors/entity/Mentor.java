@@ -1,5 +1,6 @@
 package com.mentorfy.mentorfy.mentors.entity;
 
+import com.mentorfy.mentorfy.sudent.entity.Student;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
