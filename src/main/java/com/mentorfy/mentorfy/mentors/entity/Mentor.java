@@ -1,9 +1,10 @@
 package com.mentorfy.mentorfy.mentors.entity;
 
+import com.mentorfy.mentorfy.mentors.enums.Skills;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Component
@@ -25,16 +26,20 @@ public class Mentor {
     @Column(name = "about_myself")
     private String aboutMyself;
 
-    @OneToMany
-    @JoinColumn(name = "student_id")
-    private Set<Student> students;
+//    @OneToMany
+//    @JoinColumn(name = "student_id")
+//    private Set<Student> students;
 
+    @Column(name = "skills")
+    @ElementCollection(targetClass = Skills.class)
+    @Enumerated(EnumType.STRING)
+    private EnumSet<Skills> skills;
     public Mentor() {
 
     }
 
     public Mentor(Long id, String name, String lastName, String sex, Byte age, Double developmentExperience,
-                  Double mentorExperience, String aboutMyself, Set<Student> students) {
+                  Double mentorExperience, String aboutMyself, EnumSet<Skills> skills) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -43,7 +48,6 @@ public class Mentor {
         this.developmentExperience = developmentExperience;
         this.mentorExperience = mentorExperience;
         this.aboutMyself = aboutMyself;
-        this.students = students;
     }
 
     public Long getId() {
@@ -108,13 +112,5 @@ public class Mentor {
 
     public void setAboutMyself(String aboutMyself) {
         this.aboutMyself = aboutMyself;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
     }
 }
